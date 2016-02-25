@@ -1,0 +1,34 @@
+#!/bin/sh
+
+CC="gcc"
+CFLAGS="-Wall -g -pedantic-errors"
+#CFLAGS="-Wall -g"
+$CC $CFLAGS -c hash_interface.c
+$CC $CFLAGS -c log.c
+$CC $CFLAGS -c dladm_dlflow.c
+$CC $CFLAGS -c dladm_interface.c
+$CC $CFLAGS -c parse_interface.c
+$CC $CFLAGS -c storage_backend_interface.c
+$CC $CFLAGS -c ifaddr_interface.c
+$CC $CFLAGS -c socket_multicast.c
+$CC $CFLAGS -c flow_base.c
+$CC $CFLAGS -c monitor_interface.c
+$CC $CFLAGS -c main.c
+
+$CC $CFLAGS -o flow-mgmtd main.o \
+parse_interface.o \
+storage_backend_interface.o \
+ifaddr_interface.o \
+socket_multicast.o \
+dladm_dlflow.o \
+dladm_interface.o \
+hash_interface.o \
+flow_base.o \
+monitor_interface.o \
+log.o \
+-ldladm \
+-lsocket -lnsl \
+-lpthread \
+-lsqlite3 \
+-lkstat -lc
+
